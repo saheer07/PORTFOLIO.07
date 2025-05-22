@@ -3,9 +3,9 @@ import emailjs from 'emailjs-com';
 import toast, { Toaster } from 'react-hot-toast';
 
 function Contact() {
-  const [message, setMessage] = useState("");
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
 
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
@@ -16,7 +16,7 @@ function Contact() {
     e.preventDefault();
 
     if (!validateEmail(email)) {
-      toast.error("Please enter a valid email address.");
+      toast.error('Please enter a valid email address.');
       return;
     }
 
@@ -28,75 +28,96 @@ function Contact() {
 
     emailjs
       .send(
-        'service_1y1t1yi',        // Your EmailJS Service ID
-        'template_p30ttl6',       // Your Template ID
+        'service_1y1t1yi',
+        'template_p30ttl6',
         templateParams,
-        'KTj6GPbTAVS2JysnN'       // Your Public Key
+        'KTj6GPbTAVS2JysnN'
       )
       .then(() => {
-        toast.success("✅ Message sent successfully!");
+        toast.success(' Message sent successfully!');
         setName('');
         setEmail('');
         setMessage('');
       })
       .catch(() => {
-        toast.error("❌ Failed to send message. Please try again.");
+        toast.error(' Failed to send message. Please try again.');
       });
   };
 
   return (
     <section
-      className="min-h-screen bg-gray-950 text-white py-16 px-6"
       id="contact"
+      className=" bg-gray-950 text-white py-16 px-4 sm:px-8 md:px-16 lg:px-24"
     >
       <Toaster position="top-center" />
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-white mb-10 text-center border-b-4 border-red-600 inline-block pb-2">
+      <div className="max-w-4xl mx-auto text-center">
+        <h2
+          className="text-4xl sm:text-5xl font-extrabold mb-12 border-b-4 border-red-600 inline-block pb-3 select-none"
+        >
           Contact Me
-        </h1>
+        </h2>
 
         <form
           onSubmit={sendEmail}
-          className="space-y-6 bg-gradient-to-br from-black via-gray-900 to-red-600 p-8 rounded-lg shadow-2xl transition-all duration-500"
+          className="bg-gradient-to-br from-black via-gray-900 to-red-900 rounded-3xl p-8 sm:p-10 shadow-2xl space-y-8 max-w-2xl mx-auto"
         >
-          <div>
-            <label className="block mb-1 text-red-400">Name:</label>
+          <div className="text-left">
+            <label
+              className="block mb-2 text-red-400 font-semibold text-base"
+              htmlFor="name"
+            >
+              Name:
+            </label>
             <input
+              id="name"
               type="text"
               placeholder="Your Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition text-base"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 text-red-400">Email:</label>
+          <div className="text-left">
+            <label
+              className="block mb-2 text-red-400 font-semibold text-base"
+              htmlFor="email"
+            >
+              Email:
+            </label>
             <input
+              id="email"
               type="email"
               placeholder="Your Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition text-base"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 text-red-400">Message:</label>
+          <div className="text-left">
+            <label
+              className="block mb-2 text-red-400 font-semibold text-base"
+              htmlFor="message"
+            >
+              Message:
+            </label>
             <textarea
+              id="message"
               placeholder="Your Message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              className="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-red-500"
-            ></textarea>
+              rows={6}
+              className="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-red-500 transition text-base"
+            />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded font-bold transition duration-300"
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-full text-base transition duration-300"
           >
             Send Message
           </button>
