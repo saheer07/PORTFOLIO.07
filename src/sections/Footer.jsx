@@ -4,70 +4,79 @@ import { Facebook, Instagram, Github, Linkedin } from 'lucide-react';
 function Footer() {
   return (
     <footer className="bg-gray-950 text-gray-300 px-6 py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10 md:gap-y-0 space-y-10 md:space-y-0">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         
         {/* Logo + About */}
-        <div>
-          <h1 className="text-red-500 text-2xl font-bold mb-3">Saheer</h1>
-          <p className="text-sm">
+        <div className="flex flex-col space-y-4">
+          <h1 className="text-red-500 text-3xl font-extrabold tracking-wide">Saheer</h1>
+          <p className="text-sm md:text-base leading-relaxed">
             Passionate developer building modern web experiences. Let's connect and collaborate.
           </p>
         </div>
 
         {/* Navigation Links */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#home" className="hover:text-red-500 transition">Home</a></li>
-            <li><a href="#about" className="hover:text-red-500 transition">About</a></li>
-            <li><a href="#skills" className="hover:text-red-500 transition">Skills</a></li>
-            <li><a href="#projects" className="hover:text-red-500 transition">Projects</a></li>
-            <li><a href="#contact" className="hover:text-red-500 transition">Contact</a></li>
+        <nav className="flex flex-col space-y-3">
+          <h2 className="text-lg font-semibold mb-2">Quick Links</h2>
+          <ul className="flex flex-col space-y-2 text-sm md:text-base">
+            {['home', 'about', 'skills', 'projects', 'contact'].map((section) => (
+              <li key={section}>
+                <a
+                  href={`#${section}`}
+                  className="hover:text-red-500 transition-colors duration-300"
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </a>
+              </li>
+            ))}
           </ul>
-        </div>
+        </nav>
 
         {/* Social Links */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Follow Me</h2>
-          <div className="flex space-x-5">
+        <div className="flex flex-col space-y-4">
+          <h2 className="text-lg font-semibold mb-2">Follow Me</h2>
+          <div className="flex space-x-6 text-red-500">
             <a
               href="https://www.facebook.com/share/19BKcvb4Uj/?mibextid=wwXIfr"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-red-500 transition"
+              aria-label="Facebook"
+              className="hover:text-red-400 transition-colors duration-300"
             >
-              <Facebook />
+              <Facebook size={28} />
             </a>
             <a
               href="https://www.instagram.com/saheerrr____?igsh=MW16MTE2eHV5emtydw=="
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-red-500 transition"
+              aria-label="Instagram"
+              className="hover:text-red-400 transition-colors duration-300"
             >
-              <Instagram />
+              <Instagram size={28} />
             </a>
             <a
               href="https://github.com/saheer07"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-red-500 transition"
+              aria-label="GitHub"
+              className="hover:text-red-400 transition-colors duration-300"
             >
-              <Github />
+              <Github size={28} />
             </a>
             <a
               href="https://www.linkedin.com/in/saheer-chungath-23b44434a"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-red-500 transition"
+              aria-label="LinkedIn"
+              className="hover:text-red-400 transition-colors duration-300"
             >
-              <Linkedin />
+              <Linkedin size={28} />
             </a>
           </div>
         </div>
       </div>
 
       {/* Bottom Line */}
-      <div className="text-center text-xs text-gray-500 mt-10 border-t border-gray-800 pt-6">
+      <div className="text-center text-xs md:text-sm text-gray-500 mt-12 border-t border-gray-800 pt-6 select-none">
         © {new Date().getFullYear()} Saheer. All rights reserved.
       </div>
     </footer>
