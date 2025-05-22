@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaUser, FaGithub, FaCheckSquare, FaExternalLinkAlt } from 'react-icons/fa'; 
-// Replaced FaListCheck with FaCheckSquare (a valid icon)
+import { FaUser, FaGithub, FaCheckSquare, FaExternalLinkAlt } from 'react-icons/fa';
 import { SiReact, SiRedux, SiTailwindcss, SiFramer } from 'react-icons/si';
 import todoImage from '../assets/todo.png';
 import pageImage from '../assets/page.png';
 
 function Projects() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
+
   const projects = [
     {
       title: 'Todo App',
       image: todoImage,
-      icon: <FaCheckSquare className="text-red-500 text-4xl mb-2" />,  // Fixed icon here
+      icon: <FaCheckSquare className="text-red-500 text-4xl mb-2" />,
       description:
         'A simple todo list app built with React and Redux. It allows users to add, edit, delete, and mark tasks as completed.',
       tech: [
@@ -40,11 +42,20 @@ function Projects() {
     },
   ];
 
+  // Function to open modal with image
+  const openModal = (img) => {
+    setModalImage(img);
+    setModalOpen(true);
+  };
+
+  // Function to close modal
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalImage('');
+  };
+
   return (
-    <section
-      id="projects"
-      className="min-h-screen p-12 bg-gray-950 text-white"
-    >
+    <section id="projects" className="min-h-screen p-12 bg-gray-950 text-white">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl font-extrabold mb-10 border-b-4 inline-block border-red-600 pb-2">
           Projects
@@ -54,28 +65,29 @@ function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className=" bg-gradient-to-br from-black via-gray-900 to-red-600 rounded-xl shadow-xl border-2 border-transparent hover:border-red-500 transition duration-300 overflow-hidden"
+              className="bg-gradient-to-br from-black via-gray-900 to-red-600 rounded-xl shadow-xl border-2 border-transparent hover:border-red-500 transition duration-300 overflow-hidden cursor-pointer"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
+              {/* Image clickable to open modal */}
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-150 h- object-cover"
+                className="w-full h-48 sm:h-56 object-cover"
+                onClick={() => openModal(project.image)}
               />
+
               <div className="p-6 text-left">
                 <div className="flex items-center justify-between">
                   <h3 className="text-2xl font-bold">{project.title}</h3>
-                  <span className="text-m bg-red-200 dark:bg-red-700 text-red-800 dark:text-red-200 px-2 py-1 rounded">
+                  <span className="text-sm bg-red-200 dark:bg-red-700 text-red-800 dark:text-red-200 px-2 py-1 rounded">
                     {project.tag}
                   </span>
                 </div>
 
-                <p className="mt-3 text-gray-700 dark:text-gray-300 text-sm">
-                  {project.description}
-                </p>
+                <p className="mt-3 text-gray-200 text-sm">{project.description}</p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tech.map((tech, idx) => (
@@ -88,12 +100,12 @@ function Projects() {
                   ))}
                 </div>
 
-                <div className="mt-4 flex gap-4">
+                <div className="mt-4 flex gap-6">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white flex items-center gap-1"
+                    className="text-sm text-gray-400 hover:text-white flex items-center gap-1 transition"
                   >
                     <FaGithub /> GitHub
                   </a>
@@ -101,7 +113,7 @@ function Projects() {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-blue-500 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1"
+                    className="text-sm text-blue-400 hover:text-blue-600 flex items-center gap-1 transition"
                   >
                     <FaExternalLinkAlt /> Live Demo
                   </a>
@@ -111,6 +123,28 @@ function Projects() {
           ))}
         </div>
       </div>
+
+      {/* Modal for full size image */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 cursor-pointer"
+          onClick={closeModal}
+        >
+          <img
+            src={modalImage}
+            alt="Full project"
+            className="max-w-4xl max-h-[90vh] rounded-lg shadow-lg"
+            onClick={(e) => e.stopPropagation()} // Prevent modal close on image click
+          />
+          <button
+            onClick={closeModal}
+            className="absolute top-8 right-8 text-white text-3xl font-bold hover:text-red-500 transition"
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+        </div>
+      )}
     </section>
   );
 }

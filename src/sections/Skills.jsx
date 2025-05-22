@@ -6,7 +6,7 @@ import {
   FaReact,
   FaGitAlt,
 } from 'react-icons/fa';
-import { SiTailwindcss, SiRedux } from 'react-icons/si'; // ✅ Correct Redux icon
+import { SiTailwindcss, SiRedux } from 'react-icons/si';
 import { motion } from 'framer-motion';
 
 function Skills() {
@@ -34,7 +34,7 @@ function Skills() {
     {
       name: 'Tailwind CSS',
       icon: <SiTailwindcss className="text-cyan-500 text-4xl" />,
-      about: 'A utility-first CSS framework for fast and responsive design.',
+      about: 'Utility-first CSS framework for fast and responsive design.',
     },
     {
       name: 'Git',
@@ -43,7 +43,7 @@ function Skills() {
     },
     {
       name: 'Redux',
-      icon: <SiRedux className="text-purple-500 text-4xl" />, // ✅ Corrected
+      icon: <SiRedux className="text-purple-500 text-4xl" />,
       about: 'A predictable state container for JavaScript apps.',
     },
   ];
@@ -51,27 +51,33 @@ function Skills() {
   return (
     <section
       id="skills"
-      className="min-h-screen bg-gray-950 dark:from-gray-950 dark:to-black text-black dark:text-white py-16 px-6"
+      className="min-h-screen py-20 px-6 bg-gray-950 text-white"
     >
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl text-white font-extrabold mb-10 border-b-4 inline-block border-red-600 pb-2">
+      <div className="max-w-7xl mx-auto text-center">
+        <motion.h2
+          className="text-4xl font-extrabold mb-12 border-b-4 inline-block border-red-600 pb-2"
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
           Skills
-        </h2>
+        </motion.h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {skills.map((skill, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(255,0,0,0.6)' }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-gradient-to-br from-black via-gray-900 to-red-600 rounded-xl shadow-lg p-6 flex flex-col items-center space-y-2 hover:shadow-2xl transition text-white text-center"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="bg-gradient-to-br from-black via-gray-900 to-red-800 rounded-2xl p-6 shadow-xl hover:shadow-red-700 transition duration-300"
             >
-              {skill.icon}
-              <p className="text-lg font-semibold">{skill.name}</p>
-              <p className="text-sm text-gray-300">{skill.about}</p>
+              <div className="flex flex-col items-center text-center space-y-3">
+                {skill.icon}
+                <p className="text-lg font-semibold">{skill.name}</p>
+                <p className="text-sm text-gray-300">{skill.about}</p>
+              </div>
             </motion.div>
           ))}
         </div>
